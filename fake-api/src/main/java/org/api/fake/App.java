@@ -15,8 +15,15 @@ public class App
 
         try {
             data.initializeJsonData();
-            Map<String, BigDecimal> sumOfCategories = TaskUtil.getSumOfCategories(data);
-            sumOfCategories.entrySet().forEach(record -> System.out.println(record.getKey() + " " + record.getValue()));
+            try {
+                System.out.println("---- Task 1 ----");
+                Map<String, BigDecimal> sumOfCategories = TaskUtil.getSumOfCategories(data);
+                sumOfCategories.entrySet().forEach(record -> System.out.println(record.getKey() + " " + record.getValue()));
+                System.out.println("---- Task 2 ----");
+                System.out.println(TaskUtil.getCartOwnerAndVal(TaskUtil.getHighestValCart(data), data));
+            } catch (NullPointerException nullPointerException) {
+                nullPointerException.printStackTrace();
+            }
         } catch (IOException ioException) {
             ioException.printStackTrace();
         } catch (Exception exception) {

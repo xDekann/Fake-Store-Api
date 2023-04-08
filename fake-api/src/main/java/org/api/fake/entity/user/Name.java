@@ -5,7 +5,6 @@ import lombok.*;
 
 @Setter
 @Getter
-@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,4 +13,9 @@ public class Name {
     private String firstName;
     @JsonAlias("lastname")
     private String lastName;
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
