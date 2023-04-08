@@ -21,6 +21,8 @@ public class App
                 sumOfCategories.entrySet().forEach(record -> System.out.println(record.getKey() + " " + record.getValue()));
                 System.out.println("---- Task 2 ----");
                 System.out.println(TaskUtil.getCartOwnerAndVal(TaskUtil.getHighestValCart(data), data));
+                System.out.println("---- Task 3 ----");
+                TaskUtil.getTwoMostDistancedUsers(data).forEach(System.out::println);
             } catch (NullPointerException nullPointerException) {
                 nullPointerException.printStackTrace();
             }
