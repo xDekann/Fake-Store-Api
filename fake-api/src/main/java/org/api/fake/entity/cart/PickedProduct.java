@@ -8,6 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class PickedProduct {
     private int productId;
     private int quantity;

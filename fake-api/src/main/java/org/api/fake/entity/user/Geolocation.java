@@ -9,6 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Geolocation {
     @JsonAlias("lat")
     private double latitude;

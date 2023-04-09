@@ -8,6 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Name {
     @JsonAlias("firstname")
     private String firstName;

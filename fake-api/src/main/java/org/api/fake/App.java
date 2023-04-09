@@ -1,7 +1,6 @@
 package org.api.fake;
 
 import org.api.fake.util.InitData;
-import java.io.IOException;
 import org.api.fake.util.TaskUtil;
 
 import java.io.IOException;
@@ -16,18 +15,18 @@ public class App
         try {
             data.initializeJsonData();
             try {
-                System.out.println("---- Task 1 ----");
+                System.out.println("---- Task 2 (task 1 succeeded) ----");
                 Map<String, BigDecimal> sumOfCategories = TaskUtil.getSumOfCategories(data);
-                sumOfCategories.entrySet().forEach(record -> System.out.println(record.getKey() + " " + record.getValue()));
-                System.out.println("---- Task 2 ----");
-                System.out.println(TaskUtil.getCartOwnerAndVal(TaskUtil.getHighestValCart(data), data));
+                sumOfCategories.forEach((key, value) -> System.out.println(key + " " + value));
                 System.out.println("---- Task 3 ----");
+                System.out.println(TaskUtil.getCartOwnerAndVal(TaskUtil.getHighestValCart(data), data));
+                System.out.println("---- Task 4 ----");
                 TaskUtil.getTwoMostDistancedUsers(data).forEach(System.out::println);
             } catch (NullPointerException nullPointerException) {
                 nullPointerException.printStackTrace();
             }
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            System.out.println("Reading of API has failed");
         } catch (Exception exception) {
             exception.printStackTrace();
         }

@@ -2,11 +2,6 @@ package org.api.fake.util;
 
 import org.api.fake.entity.cart.Cart;
 import org.api.fake.entity.cart.PickedProduct;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
-import org.api.fake.entity.cart.Cart;
-import org.api.fake.entity.cart.PickedProduct;
 import org.api.fake.entity.user.Geolocation;
 import org.api.fake.entity.user.User;
 
@@ -14,14 +9,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import static java.math.BigDecimal.ZERO;
+import static org.api.fake.util.constant.FakeApiConst.EARTH_RADIUS;
 
 public class TaskUtil {
-
-    public final static int earthRadius = 6371;
 
     public static Map<String, BigDecimal> getSumOfCategories(InitData initData) {
         Map<String, BigDecimal> result = new HashMap<>();
@@ -37,12 +30,13 @@ public class TaskUtil {
     }
 
     public static Cart getHighestValCart(InitData data) {
+        final int BIG_DECIMAL_LESS = -1;
         BigDecimal highestVal = ZERO;
         Cart highestValCart = null;
 
         for (Cart cart : data.getCarts()) {
             BigDecimal currentCartVal = calculateCartValue(cart, data);
-            if (highestVal.compareTo(currentCartVal) < 0) {
+            if (highestVal.compareTo(currentCartVal) == BIG_DECIMAL_LESS) {
                 highestVal = currentCartVal;
                 highestValCart = cart;
             }
@@ -79,15 +73,17 @@ public class TaskUtil {
         double radLat2 = Math.toRadians(lat2);
 
         double haversine = Math.pow(Math.sin(radLatDiff / 2), 2)
-                + (Math.cos(radLat1) * Math.cos(radLat2)
-                * Math.pow(Math.sin(radLonDiff / 2), 2));
+                + (Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(radLonDiff / 2), 2));
 
-        return 2 * earthRadius * Math.asin(Math.sqrt(haversine));
+        return 2 * EARTH_RADIUS * Math.asin(Math.sqrt(haversine));
     }
 
     public static List<User> getTwoMostDistancedUsers(InitData data) {
+        final int TWO_USER_CAPACITY = 2;
+        final int FIRST_USER_LIST_INDEX = 0;
+        final int SECOND_USER_LIST_INDEX = 1;
         double longestDist = 0;
-        List<User> twoUsers = new ArrayList<>(2);
+        List<User> twoUsers = new ArrayList<>(TWO_USER_CAPACITY);
 
         for (User firstUser : data.getUsers()) {
             for (User secondUser : data.getUsers()) {
@@ -99,11 +95,11 @@ public class TaskUtil {
                 if (longestDist < haversineDist) {
                     longestDist = haversineDist;
                     if (twoUsers.isEmpty()) {
-                        twoUsers.add(0, firstUser);
-                        twoUsers.add(1, secondUser);
+                        twoUsers.add(FIRST_USER_LIST_INDEX, firstUser);
+                        twoUsers.add(SECOND_USER_LIST_INDEX, secondUser);
                     } else {
-                        twoUsers.set(0, firstUser);
-                        twoUsers.set(1, secondUser);
+                        twoUsers.set(FIRST_USER_LIST_INDEX, firstUser);
+                        twoUsers.set(SECOND_USER_LIST_INDEX, secondUser);
                     }
                 }
             }
